@@ -150,6 +150,11 @@ body {
     margin-right: .71rem;
 }
 
+.active-btn {
+    background-color: var(--clr-grey-1);
+    color: var(--clr-white)
+}
+
 @media (min-width: 768px) {
     .card {
         width: 350px;

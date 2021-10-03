@@ -73,7 +73,6 @@ const showLoading = () => {
 const settingListeners = () => {
     const phoneIcon = getElements(".phone");
 
-    console.log(phoneIcon);
     phoneIcon.forEach((icon) => {
         icon.addEventListener("click", handleClick);
     });
@@ -124,7 +123,7 @@ const init = async() => {
     ui.displayDrinks(pages[index], breweries);
 
     // Displaying Pagination buttons
-    ui.displayButtons(Object.keys(pages), breweries);
+    ui.displayButtons(Object.keys(pages), breweries, index);
 
     //Setting Event listeners for all the buttons
     settingListeners();
@@ -156,6 +155,14 @@ const handlePageBtns = (e) => {
     } else {
         index = +btnValue;
     }
+
+    //Toggling the active button
+    const activeBtn = getElement(".active-btn");
+    activeBtn.classList.remove("active-btn");
+
+    const newActiveBtn = getElement(`#btn-${index}`);
+    newActiveBtn.classList.add("active-btn");
+
     ui.displayDrinks(drinks.pages[index], breweries);
 
     //Setting Event listeners for all the buttons
