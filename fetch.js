@@ -4,9 +4,9 @@ class FetchApi {
     }
 
     /* Fetching the API data using Asyn/Await Fetch 
-               Parameters
-               1. API URL - required
-            */
+                             Parameters
+                             1. API URL - required
+                          */
     fetchDrinks = async(url) => {
         try {
             const response = await fetch(url);
@@ -26,9 +26,9 @@ class FetchApi {
     };
 
     /* Creats pages of 10 records per page 
-             Parameters
-              1. API Array Objects - required
-          */
+                           Parameters
+                            1. API Array Objects - required
+                        */
     pagination = (data) => {
         let tempArr = [];
 
@@ -40,6 +40,25 @@ class FetchApi {
                 count++;
                 tempArr = [];
             }
+        }
+    };
+
+    searchDrinkByType = async(type) => {
+        console.log(type);
+        try {
+            const res = await fetch(
+                `https://api.openbrewerydb.org/breweries?by_type=${type}`
+            );
+            if (!res.ok) {
+                throw new Error("Something went wrong!");
+            }
+            const data = await res.json();
+            //Paginate the JSON array
+            this.pagination(data);
+            return this.pages;
+        } catch (error) {
+            console.log("Error", error);
+            return error;
         }
     };
 }

@@ -72,6 +72,21 @@ body {
     margin: 3rem auto;
 }
 
+.drinks-form {
+    margin: 1rem;
+}
+
+input {
+    width: 350px;
+    padding: 0.5rem;
+    background: var(--clr-white);
+    border-radius: 5px;
+    border-color: var(--clr-primary-5);
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--clr-grey-1);
+}
+
 .breweries {
     max-width: 1100px;
     padding: 1rem;

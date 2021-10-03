@@ -98,8 +98,8 @@ const settingListeners = () => {
         btn.addEventListener("click", handlePageBtns);
     });
 };
-// Initializing the Page with list of Breweries
-const init = async() => {
+
+const settingInitialPage = () => {
     const bodyEl = document.body;
 
     //Creating the HEADER element
@@ -113,8 +113,46 @@ const init = async() => {
 
     header.after(breweries);
 
+    const form = createElements("form", ["drinks-form"]);
+    form.innerHTML = `<input type="text" id="drink-input" name="drink-input" placeholder="Search by name, state,type">`;
+
+    breweries.before(form);
+
+    const buttonContainer = createElements("section", ["button-container"]);
+
+    buttonContainer.innerHTML = `<button type="button" class="btn prev-btn">Prev</button>
+                                 <div class="page-btns-container"></div>
+                                 <button type="button" class="btn next-btn">Next</button>`;
+
+    breweries.after(buttonContainer);
+};
+
+const handleInput = async(e) => {
+    e.preventDefault();
+
+    const breweries = getElement(".breweries");
+    const buttonsCnt = getElement(".page-btns-container");
+
+    const pages = await drinks.searchDrinkByType(e.currentTarget.value);
+
+    console.log(pages, index);
+    // Displaying the API contents in the Webpage
+    ui.displayDrinks(pages[index], breweries);
+
+    // Displaying Pagination buttons
+    ui.displayButtons(Object.keys(pages), buttonsCnt, index);
+
+    //Setting Event listeners for all the buttons
+    settingListeners();
+};
+// Initializing the Page with list of Breweries
+const init = async() => {
     // Setting initial page loading message
+    settingInitialPage();
     showLoading();
+
+    const breweries = getElement(".breweries");
+    const buttonsCnt = getElement(".page-btns-container");
 
     // Fetching the drinks from API
     const pages = await drinks.fetchDrinks(URL);
@@ -123,10 +161,15 @@ const init = async() => {
     ui.displayDrinks(pages[index], breweries);
 
     // Displaying Pagination buttons
-    ui.displayButtons(Object.keys(pages), breweries, index);
+    ui.displayButtons(Object.keys(pages), buttonsCnt, index);
 
     //Setting Event listeners for all the buttons
     settingListeners();
+
+    // Input form EVENT Listener
+    const inputEl = getElement(`input[name="drink-input"]`);
+
+    inputEl.addEventListener("keyup", handleInput);
 };
 
 // Initializing the Webpage

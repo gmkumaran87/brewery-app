@@ -2,10 +2,10 @@ class UI {
     constructor() {}
 
     /* Creating Elements using DOM dynamically 
-                                      Parameters
-                                      1. HTML Elements - required
-                                      2. Class Names - Optional
-                                  */
+                                                            Parameters
+                                                            1. HTML Elements - required
+                                                            2. Class Names - Optional
+                                                        */
     createElements(el, classNames) {
         const element = document.createElement(el);
         //Checking if the class Name is present
@@ -19,9 +19,9 @@ class UI {
     }
 
     /* Displaying the Cards element in the Page using DOM dynamically 
-                                         in the breweries SECTION
-                                         1. API Objects Array - required
-                                      */
+            in the breweries SECTION
+            1. API Objects Array - required
+           */
     displayDrinks(drinks, breweriesSection) {
         //Clearing the breweries section
         breweriesSection.innerHTML = "";
@@ -31,35 +31,17 @@ class UI {
         });
     }
 
-    displayButtons(pages, breweriesSection, activeIndex) {
-        const bodyEl = this.getElement("body");
-
-        const buttonContainer = this.createElements("section", [
-            "button-container",
-        ]);
-
-        buttonContainer.innerHTML = `<button type="button" class="btn prev-btn">Prev</button>
-                                     <button type="button" class="btn next-btn">Next</button>`;
-
-        breweriesSection.after(buttonContainer);
-
-        const pageBtnsContainer = this.createElements("div", [
-            "page-btns-container",
-        ]);
-
+    displayButtons(pages, buttonsCntr, activeIndex) {
+        // Clearing the existing buttons
+        buttonsCntr.innerHTML = ``;
         pages.forEach((index) => {
-            pageBtnsContainer.append(this.generateButtons(+index, activeIndex));
+            buttonsCntr.append(this.generateButtons(+index, activeIndex));
         });
-
-        // Inserting the Page buttons before Next button
-        const nextBtn = this.getElement(".next-btn");
-        nextBtn.before(pageBtnsContainer);
     }
 
-    /* Creating the Card ARTICLE element using DOM dynamically 
-                                     and returning with API data loaded.
-                                    1. API Object - required
-                                    */
+    /* Creating the Card ARTICLE element using DOM dynamically  and returning with API data loaded.
+                1. API Object - required
+             */
     generateCard(obj) {
         const article = this.createElements("article", ["card"]);
         article.innerHTML += `<div class="drink-detais"><h2 class="drink-title">${obj.name}</h2>
@@ -78,8 +60,6 @@ class UI {
     }
 
     generateButtons(index, activeIndex) {
-        console.log(index, activeIndex);
-        console.log(typeof index, typeof activeIndex);
         const activeClass = index === activeIndex ? "active-btn" : null;
         const btn = this.createElements("button", ["btn", "page-btn", activeClass]);
         btn.id = `btn-${index}`;
