@@ -133,9 +133,12 @@ const handleInput = async(e) => {
     const breweries = getElement(".breweries");
     const buttonsCnt = getElement(".page-btns-container");
 
-    const pages = await drinks.searchDrinkByType(e.currentTarget.value);
+    const inputValue = e.currentTarget.value;
+    if (!inputValue) return; // Handling INPUT when no value
+    const pages = await drinks.searchDrinkByType(inputValue);
 
-    console.log(pages, index);
+    //if (pages) init();
+
     // Displaying the API contents in the Webpage
     ui.displayDrinks(pages[index], breweries);
 
