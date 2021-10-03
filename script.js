@@ -51,9 +51,9 @@ const handleClick = (e) => {
     let targetObj = drinks.pages[index].find((el) => el.id === drinkId);
 
     if (classes.contains("phone")) {
-        contact.innerHTML = `Phone: <span class="drink-value">${targetObj.phone}</span>`;
+        contact.innerHTML = `<span class="drink-span">Phone:</span> ${targetObj.phone}`;
     } else {
-        contact.innerHTML = `Website URL: <span class="drink-value">${targetObj.website_url}</span>`;
+        contact.innerHTML = `<span class="drink-span">Website URL:</span> ${targetObj.website_url}`;
     }
 };
 
@@ -131,22 +131,26 @@ const handleInput = async(e) => {
     e.preventDefault();
 
     const breweries = getElement(".breweries");
+    const btnsCntr = getElement(".button-container");
     const buttonsCnt = getElement(".page-btns-container");
 
     const inputValue = e.currentTarget.value;
     if (!inputValue) return; // Handling INPUT when no value
     const pages = await drinks.searchDrinkByType(inputValue);
 
-    //if (pages) init();
+    console.log(pages.error);
+    if (pages.error) {
+        ui.displayError("No rows to display", breweries, btnsCntr);
+    } else {
+        // Displaying the API contents in the Webpage
+        ui.displayDrinks(pages[index], breweries);
 
-    // Displaying the API contents in the Webpage
-    ui.displayDrinks(pages[index], breweries);
+        // Displaying Pagination buttons
+        ui.displayButtons(Object.keys(pages), buttonsCnt, index);
 
-    // Displaying Pagination buttons
-    ui.displayButtons(Object.keys(pages), buttonsCnt, index);
-
-    //Setting Event listeners for all the buttons
-    settingListeners();
+        //Setting Event listeners for all the buttons
+        settingListeners();
+    }
 };
 // Initializing the Page with list of Breweries
 const init = async() => {

@@ -38,8 +38,6 @@ class FetchApi {
     };
 
     searchDrinkByType = async(type) => {
-        // console.log(type, word);
-
         try {
             const [res1, res2, res3] = await Promise.all([
                 fetch(`https://api.openbrewerydb.org/breweries?by_type=${type}`).then(
@@ -52,8 +50,8 @@ class FetchApi {
                     (data) => data.json()
                 ),
             ]);
-            // console.log([...res1, ...res2, ...res3]);
-            if (res1.length > 0 && res2.length > 0 && res3.length > 0) {
+
+            if ([...res1, ...res2, ...res3].length === 0) {
                 throw new Error("Something went wrong!");
             }
             //Paginate the JSON array
@@ -62,6 +60,7 @@ class FetchApi {
             return this.pages;
         } catch (error) {
             console.log("Error", error);
+            return { error: error };
         }
     };
 }
