@@ -41,7 +41,7 @@ Variables
     --ff-primary: "Roboto", sans-serif;
     --ff-secondary: "Open Sans", sans-serif;
     --transition: all 0.3s linear;
-    --spacing: 0.25rem;
+    --spacing: 0.188rem;
     --light-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     --dark-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
@@ -69,11 +69,11 @@ body {
 }
 
 .title {
-    margin-top: 2rem;
+    margin: 3rem auto;
 }
 
 .breweries {
-    max-width: 900px;
+    max-width: 1100px;
     padding: 1rem;
     display: flex;
     flex-flow: row wrap;
@@ -84,12 +84,17 @@ body {
 
 .card {
     min-width: 290px;
+    height: 230px;
     background-color: var(--clr-white);
     box-shadow: var(--dark-shadow);
     letter-spacing: var(--spacing);
-    text-align: center;
+    text-align: left;
     border-radius: 7px;
     padding: .7rem 1rem;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    line-height: 1.6;
 }
 
 .contacts {
@@ -108,14 +113,51 @@ body {
     border-radius: 3px;
 }
 
-.drink-street,
-.drink-city,
+.drink-contact {
+    margin-top: .7rem;
+    letter-spacing: 2px;
+}
+
 .drink-title {
-    text-align: left;
+    margin-bottom: .75rem;
+    font-size: 1rem;
+}
+
+.drink-type-span {
+    font-weight: normal;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.btn {
+    background-color: var(--clr-primary-5);
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+    box-shadow: var(--dark-shadow);
+    padding: .3rem .6rem;
+    color: #000;
+    font-weight: 400;
+    letter-spacing: 2px;
+    font-family: inherit;
+    font-size: .8rem;
+    margin-bottom: .5rem;
+    margin-right: .71rem;
 }
 
 @media (min-width: 768px) {
     .card {
-        max-width: 330px;
+        width: 350px;
+        max-width: 325px;
+        padding: .71rem .7rem;
+    }
+    .drink-title {
+        margin-bottom: .75rem;
+        font-size: 1.25rem;
     }
 }
